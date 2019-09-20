@@ -1,0 +1,21 @@
+{
+  "name": "react-hooks-template",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "package-specs": [
+    {
+      "module": "es6-global",
+      "in-source": true
+    }
+  ],
+  "suffix": ".js",
+  "namespace": true,
+  "bs-dependencies": ["reason-react", "bs-fetch", "@glennsl/bs-json", "bs-css"],
+  "refmt": 3,
+  "ppx-flags": []
+}
