@@ -1,1 +1,1 @@
-src/App-ReactHooksTemplate.cmj : ReactHooksTemplate.cmi
+src/App-ReactHooksTemplate.cmj : ReactHooksTemplate.cmi src/components/BlocgList-ReactHooksTemplate.cmj src/components/BlocgList-ReactHooksTemplate.cmi src/components/Nav-ReactHooksTemplate.cmj src/components/Nav-ReactHooksTemplate.cmi

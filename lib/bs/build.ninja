@@ -1,40 +1,45 @@
+g_std_incl = /home/khan/projects/reasonml/reasonmlblog/node_modules/bs-platform/lib/ocaml
 g_pkg_flg = -bs-package-name react-hooks-template -bs-ns ReactHooksTemplate
-src_root_dir = /home/khan/projects/rra
-bsc = /home/khan/projects/rra/node_modules/bs-platform/lib/bsc.exe
-bsdep = /home/khan/projects/rra/node_modules/bs-platform/lib/bsb_helper.exe
+src_root_dir = /home/khan/projects/reasonml/reasonmlblog
+bsc = /home/khan/projects/reasonml/reasonmlblog/node_modules/bs-platform/lib/bsc.exe
+bsdep = /home/khan/projects/reasonml/reasonmlblog/node_modules/bs-platform/lib/bsb_helper.exe
 warnings = -w -30-40+6+7+27+32..39+44+45+101
-bsc_flags = -nostdlib -I '/home/khan/projects/rra/node_modules/bs-platform/lib/ocaml' -color always
+bsc_flags = 
 ppx_flags = 
-g_pkg_incls = -I /home/khan/projects/rra/node_modules/reason-react/lib/ocaml -I /home/khan/projects/rra/node_modules/bs-fetch/lib/ocaml -I /home/khan/projects/rra/node_modules/@glennsl/bs-json/lib/ocaml -I /home/khan/projects/rra/node_modules/bs-css/lib/ocaml
-bs_package_dev_includes = 
+g_dpkg_incls = 
 g_ns = -bs-ns ReactHooksTemplate
 bsb_dir_group = 0
-refmt = /home/khan/projects/rra/node_modules/bs-platform/lib/refmt.exe
-reason_react_jsx = -bs-jsx 3
-refmt_flags = --print binary
-g_lib_incls = -I . -I src
-rule build_ast_and_module_sets_from_re
-  command = $bsc -pp "$refmt $refmt_flags" $reason_react_jsx  $ppx_flags $warnings $bsc_flags -c -o $out -bs-syntax-only -bs-binary-ast -impl $in
+g_lib_incls = -I . -I src/components -I src -I /home/khan/projects/reasonml/reasonmlblog/node_modules/reason-react/lib/ocaml -I /home/khan/projects/reasonml/reasonmlblog/node_modules/bs-fetch/lib/ocaml -I /home/khan/projects/reasonml/reasonmlblog/node_modules/@glennsl/bs-json/lib/ocaml -I /home/khan/projects/reasonml/reasonmlblog/node_modules/bs-css/lib/ocaml
+rule build_ast_from_re
+  command = $bsc  $warnings -color always -bs-jsx 3 $bsc_flags -o $out -bs-syntax-only -bs-binary-ast $in
   description = [34mBuilding[39m [2m${out}[22m
-build src/App.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/App.re
+build  src/App.reast : build_ast_from_re $src_root_dir/src/App.re
 rule build_deps
-  command = $bsdep $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 5b12a414adfdad76819f0d1d27ace2f6 $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
-build src/App.d : build_deps src/App.mlast
-rule re_cmj_cmi
-  command = $bsc $g_pkg_flg  -bs-re-out -bs-super-errors $g_pkg_incls $g_lib_incls $bsc_extra_includes $warnings $bsc_flags $gentypeconfig -o $out -c  $in $postbuild
+build  src/App.d : build_deps src/App.reast
+rule ml_cmj_cmi
+  command = $bsc -nostdlib $g_pkg_flg -color always $g_lib_incls -I $g_std_incl $warnings $bsc_flags -o $out $in
   dyndep = $in_e.d
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
-build src/App-ReactHooksTemplate.cmj |  $src_root_dir/src/App.js src/App-ReactHooksTemplate.cmi : re_cmj_cmi src/App.mlast ||  src/App.d
+build  src/App-ReactHooksTemplate.cmj |  src/App-ReactHooksTemplate.cmi $src_root_dir/src/App.js : ml_cmj_cmi src/App.reast ||  src/App.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output es6-global:src
-build src/index.mlast : build_ast_and_module_sets_from_re $src_root_dir/src/index.re
-build src/index.d : build_deps src/index.mlast
-build src/index-ReactHooksTemplate.cmj |  $src_root_dir/src/index.js src/index-ReactHooksTemplate.cmi : re_cmj_cmi src/index.mlast ||  src/index.d
+build  src/index.reast : build_ast_from_re $src_root_dir/src/index.re
+build  src/index.d : build_deps src/index.reast
+build  src/index-ReactHooksTemplate.cmj |  src/index-ReactHooksTemplate.cmi $src_root_dir/src/index.js : ml_cmj_cmi src/index.reast ||  src/index.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output es6-global:src
+build  src/components/Nav.reast : build_ast_from_re $src_root_dir/src/components/Nav.re
+build  src/components/Nav.d : build_deps src/components/Nav.reast
+build  src/components/Nav-ReactHooksTemplate.cmj |  src/components/Nav-ReactHooksTemplate.cmi $src_root_dir/src/components/Nav.js : ml_cmj_cmi src/components/Nav.reast ||  src/components/Nav.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output es6-global:src/components
+build  src/components/BlocgList.reast : build_ast_from_re $src_root_dir/src/components/BlocgList.re
+build  src/components/BlocgList.d : build_deps src/components/BlocgList.reast
+build  src/components/BlocgList-ReactHooksTemplate.cmj |  src/components/BlocgList-ReactHooksTemplate.cmi $src_root_dir/src/components/BlocgList.js : ml_cmj_cmi src/components/BlocgList.reast ||  src/components/BlocgList.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output es6-global:src/components
 rule build_package
-  command = $bsc -w -49 -no-alias-deps -bs-cmi-only -c $in
+  command = $bsc -w -49 -color always -no-alias-deps  $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
-build ReactHooksTemplate.cmi : build_package ReactHooksTemplate.mlmap
+build  ReactHooksTemplate.cmi : build_package ReactHooksTemplate.mlmap

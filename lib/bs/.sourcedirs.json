@@ -1,1 +1,1 @@
-{ "dirs" : [ "src" ] , "generated" : [] }
+{ "dirs" : [ "src" , "src/components" ] , "pkgs" : [ [ "bs-platform" , "/home/khan/projects/reasonml/reasonmlblog/node_modules/bs-platform" ] , [ "bs-fetch" , "/home/khan/projects/reasonml/reasonmlblog/node_modules/bs-fetch" ] , [ "reason-react" , "/home/khan/projects/reasonml/reasonmlblog/node_modules/reason-react" ] , [ "bs-css" , "/home/khan/projects/reasonml/reasonmlblog/node_modules/bs-css" ] , [ "@glennsl/bs-json" , "/home/khan/projects/reasonml/reasonmlblog/node_modules/@glennsl/bs-json" ] ] , "generated" : [] }

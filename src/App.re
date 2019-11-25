@@ -1,3 +1,12 @@
 open ReasonReact;
 [@react.component]
-let make = () => <h1> <span> {"hello!" |> string} </span> </h1>;
+let make = () => {
+  let url = ReasonReactRouter.useUrl();
+  <>
+    <Nav />
+    {switch (url.path) {
+     | ["blog"] => <BlocgList />
+     | _ => <div> {"404" |> string} </div>
+     }}
+  </>;
+};
